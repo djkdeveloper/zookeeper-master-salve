@@ -140,11 +140,11 @@ public final class PictureServerCache {
         PictureServerCache.getInstance().addPictureServer("2", "2");
         PictureServerCache.getInstance().addPictureServer("3", "3");
         PictureServerCache.getInstance().addPictureServer("1", "a");
-        //   System.out.println(PictureServerCache.getInstance().list);
-        //   PictureServerCache.getInstance().removePictureServer("1");
-        //  System.out.println(PictureServerCache.getInstance().list);
-        //  PictureServerCache.getInstance().updatePictureServer("2", "10");
-        //  System.out.println(PictureServerCache.getInstance().list);
+        System.out.println(PictureServerCache.getInstance().list);
+        PictureServerCache.getInstance().removePictureServer("1");
+        System.out.println(PictureServerCache.getInstance().list);
+        PictureServerCache.getInstance().updatePictureServer("2", "10");
+        System.out.println(PictureServerCache.getInstance().list);
 
         Optional<PictureServer> optional = PictureServerCache.getInstance().getBestPictureServer();
         System.out.println(optional.get());
