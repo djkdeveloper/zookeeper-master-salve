@@ -58,7 +58,6 @@ public class PictureServer{
         if (StringUtils.isEmpty(ip)) {
             return false;
         }
-
         return ip.equals(this.ip);
     }
 

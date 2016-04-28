@@ -64,7 +64,7 @@ public final class PictureServerCache {
     public void addPictureServer(String ip, String serverLoadingNum) {
 
         if (StringUtils.isEmpty(ip) || !StringUtils.isNumeric(serverLoadingNum)) {
-            LogUtils.error(DEBUG, () -> "AddPictureServer due to ip or serverLoadingNum is null...ip:" + ip + " serverLoadingNum:" + serverLoadingNum);
+            LogUtils.error(DEBUG, () -> "AddPictureServer Fail due to ip or serverLoadingNum is null...ip:" + ip + " serverLoadingNum:" + serverLoadingNum);
             return;
         }
 
@@ -82,7 +82,8 @@ public final class PictureServerCache {
             LogUtils.error(DEBUG, () -> "RemovePictureServer Fail due to ip is null or servers is empty...");
             return;
         }
-        list = list.stream().filter(x -> !(x.getIp().equals(ip))).collect(Collectors.toList());
+
+        list = list.stream().filter(x -> !x.isCurrentPictureServer(ip)).collect(Collectors.toList());
     }
 
 
@@ -93,7 +94,7 @@ public final class PictureServerCache {
      * @param serverLoadingNum 服务器负载
      */
     public void updatePictureServer(String ip, String serverLoadingNum) {
-        if (StringUtils.isEmpty(ip) || StringUtils.isNumeric(serverLoadingNum)) {
+        if (StringUtils.isEmpty(ip) || !StringUtils.isNumeric(serverLoadingNum)) {
             LogUtils.error(DEBUG, () -> "UpdatePictureServer due to ip or serverLoadingNum is null...ip:" + ip + " serverLoadingNum:" + serverLoadingNum);
             return;
         }

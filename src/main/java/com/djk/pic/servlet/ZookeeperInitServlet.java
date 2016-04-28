@@ -26,11 +26,6 @@ public class ZookeeperInitServlet extends HttpServlet {
      */
     private static final Logger DEBUG = Logger.getLogger(ZookeeperInitServlet.class);
 
-    /**
-     * zk的根节点
-     */
-    private static final String ROOT = "/Server";
-
     @Override
     public void init() throws ServletException {
 
@@ -55,14 +50,14 @@ public class ZookeeperInitServlet extends HttpServlet {
         CuratorFramework curatorFramework = ZookeeperUtils.createSimpleZkClient("112.124.63.64:2181");
         curatorFramework.start();
         // 首先判断根节点是否存在
-        if (!ZookeeperUtils.isNodeExist(curatorFramework, ROOT)) {
-            LogUtils.debug(DEBUG, () -> ROOT + "is not exist and begin to create...");
-            ZookeeperUtils.create(curatorFramework, ROOT, "".getBytes());
+        if (!ZookeeperUtils.isNodeExist(curatorFramework, ZookeeperUtils.ROOT)) {
+            LogUtils.debug(DEBUG, () -> ZookeeperUtils.ROOT + "is not exist and begin to create...");
+            ZookeeperUtils.create(curatorFramework, ZookeeperUtils.ROOT, "".getBytes());
         }
 
         // 进行监听
         final PathChildrenCache childrenCache = new PathChildrenCache(curatorFramework,
-                ROOT, true);
+                ZookeeperUtils.ROOT, true);
 
         childrenCache.start(PathChildrenCache.StartMode.BUILD_INITIAL_CACHE);
 
