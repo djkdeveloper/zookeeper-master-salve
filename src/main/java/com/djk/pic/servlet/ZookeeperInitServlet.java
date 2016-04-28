@@ -69,7 +69,7 @@ public class ZookeeperInitServlet extends HttpServlet {
         childrenCache = new PathChildrenCache(curatorFramework,
                 ZookeeperUtils.ROOT, true);
 
-        childrenCache.start(PathChildrenCache.StartMode.BUILD_INITIAL_CACHE);
+        childrenCache.start(PathChildrenCache.StartMode.NORMAL);
 
         // 对根节点进行监听
         childrenCache.getListenable().addListener((client, event) -> {
