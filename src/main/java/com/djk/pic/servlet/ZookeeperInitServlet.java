@@ -57,7 +57,7 @@ public class ZookeeperInitServlet extends HttpServlet {
      */
     private void initZkService() throws Exception {
 
-        curatorFramework = ZookeeperUtils.createSimpleZkClient("112.124.63.64:2181");
+        curatorFramework = ZookeeperUtils.createSimpleZkClient("xx.xx.xx:2181");
         curatorFramework.start();
         // 首先判断根节点是否存在
         if (!ZookeeperUtils.isNodeExist(curatorFramework, ZookeeperUtils.ROOT)) {
