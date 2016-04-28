@@ -26,6 +26,16 @@ public class ZookeeperInitServlet extends HttpServlet {
      */
     private static final Logger DEBUG = Logger.getLogger(ZookeeperInitServlet.class);
 
+    /**
+     * zk客户端
+     */
+    private CuratorFramework curatorFramework;
+
+    /**
+     * 节点监听对象
+     */
+    private PathChildrenCache childrenCache;
+
     @Override
     public void init() throws ServletException {
 
@@ -47,7 +57,7 @@ public class ZookeeperInitServlet extends HttpServlet {
      */
     private void initZkService() throws Exception {
 
-        CuratorFramework curatorFramework = ZookeeperUtils.createSimpleZkClient("112.124.63.64:2181");
+        curatorFramework = ZookeeperUtils.createSimpleZkClient("112.124.63.64:2181");
         curatorFramework.start();
         // 首先判断根节点是否存在
         if (!ZookeeperUtils.isNodeExist(curatorFramework, ZookeeperUtils.ROOT)) {
@@ -56,7 +66,7 @@ public class ZookeeperInitServlet extends HttpServlet {
         }
 
         // 进行监听
-        final PathChildrenCache childrenCache = new PathChildrenCache(curatorFramework,
+        childrenCache = new PathChildrenCache(curatorFramework,
                 ZookeeperUtils.ROOT, true);
 
         childrenCache.start(PathChildrenCache.StartMode.BUILD_INITIAL_CACHE);
@@ -68,4 +78,14 @@ public class ZookeeperInitServlet extends HttpServlet {
     }
 
 
+    @Override
+    public void destroy() {
+        super.destroy();
+        try {
+            childrenCache.close();
+            curatorFramework.close();
+        } catch (Exception e) {
+            LogUtils.error(DEBUG, () -> "Close zk fail...", e);
+        }
+    }
 }
