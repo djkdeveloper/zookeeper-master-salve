@@ -1,10 +1,12 @@
 package com.djk.pic.bean;
 
+import com.djk.pic.utils.ApplicationContextHelper;
 import com.djk.pic.utils.LogUtils;
 import com.djk.pic.utils.ZookeeperUtils;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.PathChildrenCache;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * ZookeeperClient
@@ -40,13 +42,20 @@ public final class ZookeeperClient {
      */
     private PathChildrenCache childrenCache;
 
+    /**
+     * 注入配置文件
+     */
+    private ConfigBean configBean = (ConfigBean) ApplicationContextHelper.getBean("configBean");
 
     /**
      * 初始化zookeeper服务
      */
     public void initZkService() throws Exception {
 
-        curatorFramework = ZookeeperUtils.createSimpleZkClient("xx.xx.xx:2181");
+        LogUtils.debug(DEBUG, () -> "Begin to start zk and connection is :" + configBean.getZkConnection());
+
+        curatorFramework = ZookeeperUtils.createSimpleZkClient(configBean.getZkConnection());
+
         curatorFramework.start();
         // 首先判断根节点是否存在
         if (!ZookeeperUtils.isNodeExist(curatorFramework, ZookeeperUtils.ROOT)) {

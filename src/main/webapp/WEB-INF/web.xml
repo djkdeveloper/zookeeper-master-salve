@@ -23,6 +23,10 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -39,5 +43,11 @@
         <servlet-name>zookeeperstart</servlet-name>
         <servlet-class>com.djk.pic.servlet.ZookeeperInitServlet</servlet-class>
         <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>activestart</servlet-name>
+        <servlet-class>com.djk.pic.servlet.ActiveMqInitServlet</servlet-class>
+        <load-on-startup>3</load-on-startup>
     </servlet>
 </web-app>

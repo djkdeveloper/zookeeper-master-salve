@@ -1,7 +1,10 @@
 package com.djk.pic.controller;
 
+import com.djk.pic.bean.ConfigBean;
 import com.djk.pic.bean.PictureServer;
 import com.djk.pic.service.PictureService;
+import com.djk.pic.utils.ApplicationContextHelper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,11 +32,11 @@ public class PictureWatchController {
         return pictureService.getAllPicServerInfo();
     }
 
+
     @RequestMapping("best")
     @ResponseBody
     public String getbest() {
         Optional<PictureServer> optional = pictureService.getBestPictureServer();
-
         if (optional.isPresent()) {
             return optional.get().toString();
         } else {
