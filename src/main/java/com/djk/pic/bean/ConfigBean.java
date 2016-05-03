@@ -30,6 +30,12 @@ public class ConfigBean {
     @Value("#{configProperties['topic']}")
     private String topic;
 
+    /**
+     * 图片服务器的地址
+     */
+    @Value("#{configProperties['picServerUrl']}")
+    private String picServerUrl;
+
     public String getZkConnection() {
         return zkConnection;
     }
@@ -54,12 +60,21 @@ public class ConfigBean {
         this.topic = topic;
     }
 
+    public String getPicServerUrl() {
+        return picServerUrl;
+    }
+
+    public void setPicServerUrl(String picServerUrl) {
+        this.picServerUrl = picServerUrl;
+    }
+
     @Override
     public String toString() {
         return "ConfigBean{" +
                 "zkConnection='" + zkConnection + '\'' +
                 ", activemqConnection='" + activemqConnection + '\'' +
                 ", topic='" + topic + '\'' +
+                ", picServerUrl='" + picServerUrl + '\'' +
                 '}';
     }
 }

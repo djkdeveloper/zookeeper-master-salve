@@ -30,4 +30,10 @@ public class ActiveMqInitServlet extends HttpServlet {
 
         LogUtils.debug(DEBUG, () -> "Init ActiveMq Success...");
     }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        ActiveMqListern.getInstance().close();
+    }
 }
