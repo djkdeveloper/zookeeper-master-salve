@@ -88,9 +88,9 @@
       </dependency>
 
       <dependency>
-          <groupId>com.bbossgroups</groupId>
-          <artifactId>bboss-hession</artifactId>
-          <version>4.10.9</version>
+          <groupId>com.caucho</groupId>
+          <artifactId>hessian</artifactId>
+          <version>4.0.38</version>
       </dependency>
 
   </dependencies>
