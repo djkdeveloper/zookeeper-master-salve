@@ -19,7 +19,6 @@ import java.util.Optional;
  */
 @Controller
 public class PictureWatchController {
-
     /**
      * 注入图片服务接口
      */
